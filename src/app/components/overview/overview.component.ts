@@ -12,6 +12,7 @@ import {MatDialog} from '@angular/material/dialog';
 export class OverviewComponent implements OnInit {
 
   public docNames = [];
+  public relevantDocuments = [];
   constructor(public daoService: DaoService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
@@ -23,6 +24,17 @@ export class OverviewComponent implements OnInit {
     return new Promise<any>(resolve => {
       this.daoService.getDocName().toPromise().then(async value => {
         this.docNames = value;
+        resolve(value);
+      }).catch(reason => {
+        console.error(reason);
+      });
+    });
+  }
+
+    public getRelevantDocuments(searchQuery: string): Promise<any> {
+    return new Promise<any>(resolve => {
+      this.daoService.getRelevantDocuments(searchQuery).toPromise().then(async value => {
+        this.relevantDocuments = value;
         resolve(value);
       }).catch(reason => {
         console.error(reason);

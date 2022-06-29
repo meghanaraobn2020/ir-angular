@@ -4,12 +4,17 @@
   <div class="row">
     <div class="col-4"></div>
     <div class="col-4 text-align-center full-width">
-      <app-search-bar></app-search-bar>
+      <app-search-bar (searchQuery) = "getRelevantDocuments($event)"></app-search-bar>
       <div>Top Ranked Documents:</div>
       <section class="example-list-section">
         <ul>
           <li *ngFor="let name of docNames">
             <mat-checkbox color="primary">{{name}}</mat-checkbox>
+          </li>
+        </ul>
+        <ul>
+          <li *ngFor="let docs of relevantDocuments">
+            <mat-checkbox color="primary">{{docs}}</mat-checkbox>
           </li>
         </ul>
       </section>
