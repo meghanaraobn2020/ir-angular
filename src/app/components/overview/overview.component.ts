@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {DaoService} from '../../services/dao.service';
 import {DialogComponent} from '../dialog/dialog.component';
 import {MatDialog} from '@angular/material/dialog';
@@ -13,7 +13,9 @@ export class OverviewComponent implements OnInit {
 
   public relevantDocuments = [];
   public docList = [];
-  constructor(public daoService: DaoService, public dialog: MatDialog) { }
+
+  constructor(public daoService: DaoService, public dialog: MatDialog) {
+  }
 
   ngOnInit(): void {
     this.dialog.open(DialogComponent);
@@ -31,7 +33,11 @@ export class OverviewComponent implements OnInit {
   }
 
   public getCheckedRelevantDocuments(docId: any): void {
-    this.docList.push(docId);
+    if (this.docList.includes(docId)) {
+      this.docList.splice(this.docList.indexOf(docId), 1);
+    } else {
+      this.docList.push(docId);
+    }
 
     if (this.docList.length > 4) {
       this.getNewRelevantDocuments(this.docList).then(value => this.relevantDocuments = value);

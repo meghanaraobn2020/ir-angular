@@ -1,14 +1,16 @@
 <div class="row">
-  <div class="col-1 no-padding search-icon primary padding-left-1x padding-top-1x">
-    <mat-icon aria-hidden="false" aria-label="Example home icon" class="margin-right-2x white-text">search</mat-icon>
-  </div>
+
   <div class="col-11 no-padding">
     <mat-form-field class="full-width" appearance="fill">
-      <input matInput placeholder="search" (keyup)="search($event.target.value)" [value]="searchString">
-      <button class="border-none vertical-align-middle" mat-button *ngIf="searchString" matSuffix mat-icon-button aria-label="Clear" (click)="searchString=''">
+      <input matInput placeholder="search" (keyup)="updateSearch($event.target.value)" [value]="searchString">
+      <button class="border-none vertical-align-middle" mat-button *ngIf="searchString" matSuffix mat-icon-button
+              aria-label="Clear" (click)="searchString=''">
         <mat-icon>close</mat-icon>
       </button>
     </mat-form-field>
+  </div>
+  <div class="col-1 no-padding search-icon primary padding-left-1x padding-top-1x background-primary" (click)="search()">
+    <mat-icon aria-hidden="false" aria-label="Example home icon" class="margin-right-2x white-text">search</mat-icon>
   </div>
 </div>
 

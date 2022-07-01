@@ -15,8 +15,11 @@ export class SearchbarComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  public search(searchText: string): void {
+  public updateSearch(searchText: string): void {
     this.searchString = searchText;
+  }
+
+  public search(): void {
     this.searchQuery.emit(this.searchString);
   }
 
