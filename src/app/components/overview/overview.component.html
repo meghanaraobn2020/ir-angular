@@ -8,13 +8,10 @@
       <div>Top Ranked Documents:</div>
       <section class="example-list-section">
         <ul>
-          <li *ngFor="let name of docNames">
-            <mat-checkbox color="primary">{{name}}</mat-checkbox>
-          </li>
-        </ul>
-        <ul>
-          <li *ngFor="let docs of relevantDocuments">
-            <mat-checkbox color="primary">{{docs}}</mat-checkbox>
+          <li *ngFor="let doc of relevantDocuments">
+            <mat-checkbox color="primary"
+                          [value] = "doc"
+                          (change) = "getCheckedRelevantDocuments($event.source.value)">{{doc}}</mat-checkbox>
           </li>
         </ul>
       </section>

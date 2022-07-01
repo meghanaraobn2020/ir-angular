@@ -11,19 +11,18 @@ import {MatDialog} from '@angular/material/dialog';
 })
 export class OverviewComponent implements OnInit {
 
-  public docNames = [];
   public relevantDocuments = [];
+  public docList = [];
   constructor(public daoService: DaoService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.dialog.open(DialogComponent);
-    this.getDocumentName().then(value => this.docNames = value);
   }
 
-  public getDocumentName(): Promise<any> {
+  public getRelevantDocuments(searchQuery: string): Promise<any> {
     return new Promise<any>(resolve => {
-      this.daoService.getDocName().toPromise().then(async value => {
-        this.docNames = value;
+      this.daoService.getRelevantDocuments(searchQuery).toPromise().then(async value => {
+        this.relevantDocuments = value;
         resolve(value);
       }).catch(reason => {
         console.error(reason);
@@ -31,9 +30,17 @@ export class OverviewComponent implements OnInit {
     });
   }
 
-    public getRelevantDocuments(searchQuery: string): Promise<any> {
+  public getCheckedRelevantDocuments(docId: any): void {
+    this.docList.push(docId);
+
+    if (this.docList.length > 4) {
+      this.getNewRelevantDocuments(this.docList).then(value => this.relevantDocuments = value);
+    }
+  }
+
+  public getNewRelevantDocuments(userRelevantDocumentList: string[]): Promise<any> {
     return new Promise<any>(resolve => {
-      this.daoService.getRelevantDocuments(searchQuery).toPromise().then(async value => {
+      this.daoService.getNewRelevantDocuments(userRelevantDocumentList).toPromise().then(async value => {
         this.relevantDocuments = value;
         resolve(value);
       }).catch(reason => {
